@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elysium</title>
+    <meta name="description" content="Universal external that works in any game you play, giving you a competitive advantage.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ffaac8;
+            --primary-dark: #fa80bd;
+            --primary-light: #ff69b4;
+            --black: #0a0a0a;
+            --black-light: #1a1a1a;
+            --white: #ffffff;
+            --gray: #cccccc;
+            --gray-dark: #666666;
+            --discord: #5865F2;
+            --discord-dark: #4752C4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: float 15s infinite linear;
+        }
+
+        .bg-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .bg-element:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            background: var(--discord);
+            top: 60%;
+            left: 80%;
+            animation-delay: 3s;
+            animation-duration: 20s;
+        }
+
+        .bg-element:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: #00ffcc;
+            top: 80%;
+            left: 20%;
+            animation-delay: 6s;
+            animation-duration: 25s;
+        }
+
+        .bg-element:nth-child(4) {
+            width: 350px;
+            height: 350px;
+            background: #ff69b4;
+            top: 30%;
+            left: 70%;
+            animation-delay: 9s;
+            animation-duration: 18s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(50px, 50px) rotate(90deg);
+            }
+            50% {
+                transform: translate(100px, 0) rotate(180deg);
+            }
+            75% {
+                transform: translate(50px, -50px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255, 45, 117, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(250, 148, 184, 0.5);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 25px 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            background-color: rgba(10, 10, 10, 0.5);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--primary);
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            opacity: 0.9;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .discord-btn {
+            background-color: var(--discord);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .discord-btn:hover {
+            background-color: var(--discord-dark);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 5rem);
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            text-shadow: 0 0 20px rgba(255, 45, 117, 0.3);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .platforms {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .platforms h2 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            margin-bottom: 60px;
+            color: var(--white);
+        }
+
+        .platforms-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .platform-card {
+            width: 280px;
+            height: 350px;
+            background: rgba(26, 26, 26, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .platform-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+        }
+
+        .platform-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 45, 117, 0.3);
+        }
+
+        .platform-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .platform-card .icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 45, 117, 0.1);
+            border-radius: 50%;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        .coming-soon {
+            font-style: italic;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+
+        .features {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--white);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 60px;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(26, 26, 26, 0.4);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 45, 117, 0.05), transparent);
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(255, 45, 117, 0.3);
+            background: rgba(26, 26, 26, 0.6);
+        }
+
+        .feature-card .icon-container {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255, 45, 117, 0.2), rgba(255, 45, 117, 0.3));
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            font-size: 1.8rem;
+            color: var(--white);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        .feature-link i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-link:hover i {
+            transform: translateX(5px);
+        }
+
+        .showcase {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .showcase-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .showcase-item {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(26, 26, 26, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 45, 117, 0.3);
+        }
+
+        .showcase-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: rgba(26, 26, 26, 0.95);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: all 0.3s ease;
+                padding: 40px 0;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .platform-card {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .feature-card {
+                padding: 30px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-elements">
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+    </div>
+
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">EL<span>YSIUM</span></a>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-links" id="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#platforms">Platforms</a>
+                    <a href="#showcase">Showcase</a>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Elysium</h1>
+            <p>Universal external that works in any game you play, giving you a competitive advantage.</p>
+            <div class="hero-buttons">
+                <a href="https://discord.gg/tHJ64ut7SH" class="btn btn-primary">
+                    <i class="fab fa-discord"></i> Discord
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    <i class="fas fa-star text-2xl"></i> Features
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="platforms" class="platforms">
+        <div class="container">
+            <h2>Supported Platforms</h2>
+            <div class="platforms-container">
+                <div class="platform-card">
+                    <div class="icon">
+                        <i class="fab fa-windows"></i>
+                    </div>
+                    <h3>Windows</h3>
+                    <p>Full featured desktop experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Features</h2> 
+            <p class="section-subtitle"> </p>           
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon-container">
+                        <i class="fas fa-crosshairs"></i>
+                    </div>
+                    <h3>Precision Aimbot</h3>
+                    <p>Advanced targeting system with customizable FOV, smoothness, and bone prioritization for perfect accuracy.</p>
+                    <a href="#" class="feature-link">
+                        Configure <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon-container">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>ESP Visuals</h3>
+                    <p>Comprehensive ESP including player boxes, health bars, distance, and item highlights through walls.</p>
+                    <a href="#" class="feature-link">
+                        Customize <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon-container">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Undetectable</h3>
+                    <p>Military-grade encryption and memory protection ensures complete anonymity and zero detection.</p>
+                    <a href="#" class="feature-link">
+                        Learn more <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon-container">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Great Security</h3>
+                    <p>Advanced anti-cheat bypass with regular updates to maintain protection against detection systems.</p>
+                    <a href="#" class="feature-link">
+                        Security info <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon-container">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>Player Options</h3>
+                    <p>Customize visibility, hitboxes, and interactions with other players for complete control.</p>
+                    <a href="#" class="feature-link">
+                        Configure <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon-container">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Performance Mode</h3>
+                    <p>Optimized to run smoothly without impacting game performance or causing lag spikes.</p>
+                    <a href="#" class="feature-link">
+                        Optimize <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="showcase" class="showcase">
+        <div class="container">
+            <h2 class="section-title">Showcase</h2>            
+            <div class="showcase-container">
+                <div class="showcase-item">
+                    <img src="https://www.gostupid.lol/assets/showcase1.png" alt="Aimbot Visualization">
+                </div>
+                <div class="showcase-item">
+                    <img src="https://www.gostupid.lol/assets/showcase2.png" alt="ESP Display">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="copyright">
+        <p>&copy; 2025 Elysium Softworks. All rights reserved.</p>
+    </div>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.padding = "15px 0";
+                header.style.backgroundColor = "rgba(10, 10, 10, 0.8)";
+            } else {
+                header.style.padding = "25px 0";
+                header.style.backgroundColor = "rgba(10, 10, 10, 0.5)";
+            }
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            document.querySelector('.bg-element:nth-child(1)').style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+            document.querySelector('.bg-element:nth-child(2)').style.transform = `translate(${x * -40}px, ${y * -40}px)`;
+            document.querySelector('.bg-element:nth-child(3)').style.transform = `translate(${x * 50}px, ${y * -50}px)`;
+            document.querySelector('.bg-element:nth-child(4)').style.transform = `translate(${x * -60}px, ${y * 60}px)`;
+        });
+    </script>
+</body>
+</html>
